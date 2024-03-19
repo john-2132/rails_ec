@@ -10,7 +10,8 @@
 Item.create!(
   name: 'Item',
   catalog_price: 30.00,
-  image: ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join('app/assets/images/item.jpg')), filename: 'あいてむ画像')
+  image: ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join('app/assets/images/item.jpg')),
+                                                filename: 'あいてむ画像')
 )
 
 Item.create!(
@@ -24,5 +25,6 @@ Item.create!(
   name: 'Test',
   catalog_price: 48.00,
   sale_price: 24.00,
-  image: ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join('app/assets/images/test.jpg')), filename: 'てすと画像')
+  image: ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join('app/assets/images/test.jpg')),
+                                                filename: 'てすと画像')
 )
