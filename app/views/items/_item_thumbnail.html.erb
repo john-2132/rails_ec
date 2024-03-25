@@ -9,10 +9,10 @@
         <h5 class="fw-bolder"><%= link_to item.name, item %></h5>
         <!-- Product price-->
         <% if item.sale_price.present? %>
-            <span class="text-muted text-decoration-line-through"><%= "$#{format("%.2f", item.catalog_price)}" %></span>
-            <%= "$#{format("%.2f", item.sale_price)}" %>
+          <span class="text-muted text-decoration-line-through"><%= "$#{format("%.2f", item.catalog_price)}" %></span>
+          <%= "$#{format("%.2f", item.sale_price)}" %>
         <% else %>
-            <%= "$#{format("%.2f", item.catalog_price)}" %>
+          <%= "$#{format("%.2f", item.catalog_price)}" %>
         <% end %>
       </div>
     </div>
