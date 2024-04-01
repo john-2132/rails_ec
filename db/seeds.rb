@@ -68,3 +68,10 @@ Item.create!(
   description: 'おすすめの日本酒が置かれており、行く度に異なるラインナップが置かれています。',
   stock: 7
 )
+
+User.find_or_create_by!(name: 'admin') do |user|
+  user.name = 'admin'
+  user.admin = true
+  user.password = 'pw'
+  user.password_confirmation = 'pw'
+end

@@ -1,0 +1,31 @@
+<%= form_with model: Item.new, url: url, method: method, local: true, data: {turbo: false} do |f| %>
+  <div class='form-group'>
+    <%= f.label :name, '商品名(必須)' %>
+    <%= f.text_field :name, class: 'form-control', id: 'item_name', value: item.name, required: true %>
+  </div>
+  <div class='form-group'>
+    <%= f.label :catalog_price, '定価(必須)' %>
+    <%= f.number_field :catalog_price, class: 'form-control', id: 'item_catalog_price', value: item.catalog_price, step: '0.01', min: '0.01', required: true %>
+  </div>
+  <div class='form-group'>
+    <%= f.label :sale_price, '割引価格' %>
+    <%= f.number_field :sale_price, class: 'form-control', id: 'sale_price', value: item.sale_price, step: '0.01', min: '0.01' %>
+  </div>
+  <div class='form-group'>
+    <%= f.label :code, '商品コード(必須)' %>
+    <%= f.text_field :code, class: 'form-control', id: 'item_code', value: item.code, required: true %>
+  </div>
+  <div class='form-group'>
+    <%= f.label :description, '商品説明' %>
+    <%= f.text_area :description, class: 'form-control', id: 'item_description', value: item.description %>
+  </div>
+  <div class='form-group'>
+    <%= f.label :stock, '在庫数(必須)' %>
+    <%= f.number_field :stock, class: 'form-control', id: 'item_stock', value: item.stock, min: '0', required: true %>
+  </div>
+  <div class='form-group'>
+    <%= f.label :stock, '商品画像(必須)' %>
+    <%= f.file_field :image, accept: 'image/jpg', class: 'form-control', id: 'item_image', required: true %>
+  </div>
+  <%= f.submit '登録', class: 'btn btn-primary' %>
+<% end %>
