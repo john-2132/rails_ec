@@ -5,7 +5,7 @@ module Admin
     before_action :require_admin
 
     def index
-      @items = Item.all
+      @items = Item.with_attached_image
     end
 
     def new
