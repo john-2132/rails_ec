@@ -10,6 +10,13 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
   <body>
-    <%= yield %>
-  </body>
-</html>
+    <%= render partial: 'layouts/navbar' %>
+    <% flash.each do |key, value| %>
+      <div class='flash'>
+        <div class='alert alert-success'> <%= value %>
+        </div>
+      <% end %>
+      <%= yield %>
+      <%= render partial: 'layouts/footer' %>
+    </body>
+  </html>

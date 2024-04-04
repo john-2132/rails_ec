@@ -43,14 +43,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_24_052242) do
   end
 
   create_table "items", force: :cascade do |t|
-    t.string "name"
-    t.float "catalog_price"
+    t.string "name", null: false
+    t.float "catalog_price", null: false
     t.float "sale_price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "code"
+    t.string "code", null: false
     t.text "description"
-    t.integer "stock"
+    t.integer "stock", null: false
     t.index ["code"], name: "index_items_on_code", unique: true
   end
 

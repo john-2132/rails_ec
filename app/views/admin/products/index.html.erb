@@ -1,0 +1,26 @@
+<h3>商品管理一覧</h3>
+<table class="table-bordered">
+  <thead>
+    <tr style='text-align: center;'>
+      <th><%= Item.human_attribute_name(:name) %></th>
+      <th><%= Item.human_attribute_name(:catalog_price) %></th>
+      <th><%= Item.human_attribute_name(:sale_price) %></th>
+      <th><%= Item.human_attribute_name(:code) %></th>
+      <th><%= Item.human_attribute_name(:description) %></th>
+      <th><%= Item.human_attribute_name(:stock) %></th>
+      <th><%= Item.human_attribute_name(:image) %></th>
+    </tr>
+    <% @items.each do |item| %>
+      <tr>
+        <td><%= item.name %></td>
+        <td><%= item.catalog_price %></td>
+        <td><%= item.sale_price %></td>
+        <td><%= item.code %></td>
+        <td><%= item.description %></td>
+        <td><%= item.stock %></td>
+        <td><%= image_tag item.image.variant(resize: '200x120!', gravity: :center).processed, alt: item.image.filename %></td>
+        <td><%= link_to '編集', edit_admin_product_path(item), class: 'btn btn-primary' %></td>
+        <td><%= link_to '削除', admin_product_path(item), data: {turbo_confirm: "商品名「#{item.name}」を削除します。本当によろしいですか？", turbo_method: :delete}, class: 'btn btn-danger' %></td>
+      </tr>
+    <% end %>
+  </table>
