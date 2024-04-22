@@ -18,7 +18,7 @@ module Admin
       if @item.save
         redirect_to admin_products_path, notice: "商品名「#{@item.name}」を登録しました。"
       else
-        flash.now[:alert] = "登録コード「#{@item.code}」は既に存在します。"
+        flash.now[:warning] = "登録コード「#{@item.code}」は既に存在します。"
         render :new
       end
     end
