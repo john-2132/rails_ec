@@ -4,7 +4,7 @@ class Cart < ApplicationRecord
   has_many :cart_items, dependent: :destroy
 
   def contents_of_cart
-    @cart_items = CartItem
+    @cart_items = cart_items
                   .joins(:item)
                   .where(
                     cart_items: { cart_id: id }
@@ -14,6 +14,6 @@ class Cart < ApplicationRecord
   end
 
   def cart_item_quantity
-    CartItem.where(cart_id: id).sum(:quantity)
+    cart_items.sum(:quantity)
   end
 end

@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
 class CartsController < ApplicationController
-  before_action :set_cart_item, only: %i[create destroy]
+  before_action :set_cart_item, only: %i[index create destroy]
 
   def index
-    @cart_items = current_cart.contents_of_cart
+    @cart_items = @cart.contents_of_cart
   end
 
   def create
     @cart_item = current_cart.cart_items.build(item_id: params[:item_id]) if @cart_item.blank?
 
     @cart_item.quantity += params[:quantity].to_i
-    if Item.adequately_stocked?(@cart_item.item_id, @cart_item.quantity) && @cart_item.save
+    if CartItem.adequately_stocked?(@cart_item.item_id, @cart_item.quantity) && @cart_item.save
       flash[:success] = 'カートに追加しました。'
     else
       flash[:warning] = 'カートへの追加に失敗しました。'

@@ -9,9 +9,4 @@ class Item < ApplicationRecord
   def related_products
     Item.where.not(code: code).order(created_at: :desc).limit(4) # rubocop:disable Style/HashSyntax
   end
-
-  def self.adequately_stocked?(id, quantity)
-    item = Item.where(id:).select('stock').first
-    item[:stock] >= quantity
-  end
 end
