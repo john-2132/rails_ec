@@ -6,9 +6,7 @@ class Cart < ApplicationRecord
   def contents_of_cart
     @cart_items = cart_items
                   .joins(:item)
-                  .where(
-                    cart_items: { cart_id: id }
-                  ).select(
+                  .select(
                     'item_id, quantity, name, catalog_price, sale_price, description'
                   )
   end
