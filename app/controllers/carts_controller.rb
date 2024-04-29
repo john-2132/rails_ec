@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class CartsController < ApplicationController
-  before_action :set_cart_item, only: %i[index create destroy]
+  before_action :set_cart_item, only: %i[create destroy]
 
   def index
-    @cart_items = @cart.contents_of_cart
+    @cart_items = current_cart.contents_of_cart
   end
 
   def create
