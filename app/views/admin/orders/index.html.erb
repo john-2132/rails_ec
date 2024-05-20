@@ -1,0 +1,44 @@
+<h3>注文一覧</h3>
+<table class="table-bordered">
+  <thead>
+    <tr style='text-align: center;'>
+      <th><%= Order.human_attribute_name(:first_name) %></th>
+      <th><%= Order.human_attribute_name(:last_name) %></th>
+      <th><%= Order.human_attribute_name(:username) %></th>
+      <th><%= Order.human_attribute_name(:email) %></th>
+      <th><%= Order.human_attribute_name(:address) %></th>
+      <th><%= Order.human_attribute_name(:address2) %></th>
+      <th><%= Order.human_attribute_name(:country) %></th>
+      <th><%= Order.human_attribute_name(:state) %></th>
+      <th><%= Order.human_attribute_name(:zip) %></th>
+      <th><%= Order.human_attribute_name(:same_address) %></th>
+      <th><%= Order.human_attribute_name(:save_info) %></th>
+      <th><%= Order.human_attribute_name(:payment_method) %></th>
+      <th><%= Order.human_attribute_name(:cc_name) %></th>
+      <th><%= Order.human_attribute_name(:cc_number) %></th>
+      <th><%= Order.human_attribute_name(:cc_expiration) %></th>
+      <th><%= Order.human_attribute_name(:cc_cvv) %></th>
+      <th>リンク</th>
+    </tr>
+    <% @orders.each do |order| %>
+      <tr>
+        <td><%= order.first_name %></td>
+        <td><%= order.last_name %></td>
+        <td><%= order.username %></td>
+        <td><%= order.email %></td>
+        <td><%= order.address %></td>
+        <td><%= order.address2 %></td>
+        <td><%= order.country %></td>
+        <td><%= order.state %></td>
+        <td><%= order.zip %></td>
+        <td><%= order.same_address %></td>
+        <td><%= order.save_info %></td>
+        <td><%= order.payment_method %></td>
+        <td><%= order.cc_name %></td>
+        <td><%= order.cc_number %></td>
+        <td><%= order.cc_expiration %></td>
+        <td><%= order.cc_cvv %></td>
+        <td><%= link_to '詳細', admin_order_path(order.id) %></td>
+      </tr>
+    <% end %>
+  </table>

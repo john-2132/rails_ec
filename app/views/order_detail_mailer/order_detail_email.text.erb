@@ -1,0 +1,20 @@
+<%= "#{@order.last_name} #{@order.first_name}様、商品のご購入ありがとうございます！" %>
+
+<%= "郵便番号：#{@order.zip}"%>
+<%= "ご住所：#{@order.address} #{@order.address2}, #{@order.state}, #{@order.country}"%>
+
+<%= "支払い方法：#{@order.payment_method}"%><br>
+<%= "XXXX-XXXX-XXXX-#{@order.cc_number.slice(-4,4)}"%>
+
+
+<%= "注文内容" %>
+
+<% @order_items.each do |order_item| %>
+<%= OrderItem.human_attribute_name(:name) %> <%= order_item.name %>
+<%= OrderItem.human_attribute_name(:price) %> <%= order_item.price %>
+<%= OrderItem.human_attribute_name(:quantity) %> <%= order_item.quantity %>
+
+<% end %>
+<%= "合計金額：$#{@order_items.sum{|order_item| order_item[:price]}} 合計点数：#{@order_items.length}" %>
+
+※こちらは自動送信になります。こちらへ返信しないでください。

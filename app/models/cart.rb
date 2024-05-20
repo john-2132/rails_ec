@@ -7,7 +7,7 @@ class Cart < ApplicationRecord
     @cart_items = cart_items
                   .joins(:item)
                   .select(
-                    'item_id, quantity, name, catalog_price, sale_price, description'
+                    'item_id, quantity, name, catalog_price, sale_price, code, description'
                   )
   end
 

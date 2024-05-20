@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h4><%= "#{@order.last_name} #{@order.first_name}様、商品のご購入ありがとうございます！" %></h4>
+    <p>
+      <%= "郵便番号：#{@order.zip}"%>
+    </p>
+    <p>
+      <%= "ご住所：#{@order.address} #{@order.address2}, #{@order.state}, #{@order.country}"%>
+    </p>
+    <p>
+      <%= "支払い方法：#{@order.payment_method}"%><br>
+      <%= "XXXX-XXXX-XXXX-#{@order.cc_number.slice(-4,4)}"%>
+    </p>
+    <h4><%= "注文内容" %></h4>
+    <table>
+      <thead>
+        <tr style='text-align: center;'>
+          <th><%= OrderItem.human_attribute_name(:name) %></th>
+          <th><%= OrderItem.human_attribute_name(:price) %></th>
+          <th><%= OrderItem.human_attribute_name(:quantity) %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @order_items.each do |order_item| %>
+          <tr style='text-align: center;'>
+            <td><%= order_item.name %></td>
+            <td><%= order_item.price %></td>
+            <td><%= order_item.quantity %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <p>
+      <b><%= "合計金額：$#{@order_items.sum{|order_item| order_item[:price]}} 合計点数：#{@order_items.length}" %></b>
+    </p>
+    <p>
+      ※こちらは自動送信になります。こちらへ返信しないでください。
+    </p>
+  </body>
+</html>
