@@ -14,7 +14,6 @@ module Admin
     end
 
     def create
-      @order = Order.create(order_params)
       cart_items = current_cart.contents_of_cart
 
       if @cart.cart_item_quantity <= 0
@@ -22,14 +21,16 @@ module Admin
         return redirect_to carts_path
       end
 
-      @order_items = @order.create_order_items(cart_items)
-
-      if @order_items.each(&:save) && @order.save
-        flash[:success] = 'ご購入ありがとうございます！！'
-        OrderDetailMailer.with(order: @order, order_items: @order_items).order_detail_email.deliver_now
-        session.delete(:cart_id)
-        redirect_to items_path
-      else
+      begin
+        Order.transaction do
+          @order = Order.new(order_params)
+          @order_items = @order.checkout_order(cart_items)
+          flash[:success] = 'ご購入ありがとうございます！！'
+          OrderDetailMailer.with(order: @order, order_items: @order_items).order_detail_email.deliver_now
+          session.delete(:cart_id)
+          redirect_to items_path
+        end
+      rescue ActiveRecord::RecordInvalid
         flash[:warning] = '購入に失敗しました。'
         redirect_to carts_path
       end

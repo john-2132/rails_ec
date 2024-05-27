@@ -3,6 +3,15 @@
 class Order < ApplicationRecord
   has_many :order_items, dependent: :destroy
 
+  def checkout_order(checkout_items)
+    OrderItem.transaction do
+      order_items = create_order_items(checkout_items)
+      order_items.each(&:save!)
+    end
+    save!
+    order_items
+  end
+
   def create_order_items(checkout_items)
     checkout_items.map do |checkout_item|
       order_items.build(
