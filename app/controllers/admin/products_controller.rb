@@ -49,14 +49,8 @@ module Admin
       params.require(:item).permit(:name, :catalog_price, :sale_price, :code, :description, :stock, :image)
     end
 
-    def require_admin
-      redirect_to root_url unless basic_auth
-    end
-
-    def basic_auth
-      authenticate_or_request_with_http_basic do |username, password|
-        username == ENV['BASIC_AUTH_USER'] && password == ENV['BASIC_AUTH_PASS']
-      end
-    end
+    # def require_admin
+    #   redirect_to root_url unless basic_auth
+    # end
   end
 end

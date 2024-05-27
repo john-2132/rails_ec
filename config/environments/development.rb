@@ -38,11 +38,6 @@ Rails.application.configure do
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :amazon_development
 
-  # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
-
-  config.action_mailer.perform_caching = false
-
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
@@ -70,4 +65,22 @@ Rails.application.configure do
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
   config.web_console.permissions = '0.0.0.0/0'
+
+  # Don't care if the mailer can't send.
+  config.action_mailer.raise_delivery_errors = true
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: 'smtp.gmail.com',
+    enable_starttls_auto: true,
+    port: 587,
+    domain: 'gmail.com',
+    user_name: 'zumiairhc@gmail.com',
+    password: ENV['GMAIL_PASS'],
+    authentication: 'plain'
+  }
+  # config.action_mailer.smtp_settings = { address: 'rails_ec-smtp-1', port: 1025 }
+  # config.active_job.queue_adapter     = :resque
+  config.action_mailer.perform_deliveries = true
+  # config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 end

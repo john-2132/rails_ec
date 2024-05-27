@@ -1,0 +1,41 @@
+<body>
+  <!-- Product section-->
+  <div class="container px-4 px-lg-5 my-5">
+    <h3>注文詳細</h3>
+    <p>
+      <%= "氏名：#{@order.first_name} #{@order.last_name}" %>
+    </p>
+    <p class='my-0'>
+      <%= "郵便番号：#{@order.zip}"%>
+    </p>
+    <p>
+      <%= "ご住所：#{@order.address} #{@order.address2}, #{@order.state}, #{@order.country}"%>
+    </p>
+    <p>
+      <%= "支払い方法：#{@order.payment_method}"%><br>
+      <%= "XXXX-XXXX-XXXX-#{@order.cc_number.slice(-4,4)}"%>
+    </p>
+    <h3><%= "注文内容" %></h3>
+    <table class='table-bordered'>
+      <thead>
+        <tr style='text-align: center;'>
+          <th><%= OrderItem.human_attribute_name(:name) %></th>
+          <th><%= OrderItem.human_attribute_name(:price) %></th>
+          <th><%= OrderItem.human_attribute_name(:quantity) %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @order_items.each do |order_item| %>
+          <tr style='text-align: center;'>
+            <td><%= order_item.name %></td>
+            <td><%= order_item.price %></td>
+            <td><%= order_item.quantity %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <p>
+      <b><%= "合計金額：$#{@order_items.sum{|order_item| order_item[:price]}} 合計点数：#{@order_items.length}" %></b>
+    </p>
+  </div>
+</body>
