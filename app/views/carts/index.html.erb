@@ -24,17 +24,28 @@
               </div>
             </li>
           <% end %>
+          <% if @promotion_code %>
+            <li class="list-group-item d-flex justify-content-between lh-sm align-items-center">
+              <div class="col-sm-8">
+                <h6 class="my-0">プロモーションコード</h6>
+                <small class="text-muted"><%= "#{@promotion_code.code}により $#{@promotion_code.discount_price} 値引きされます。" %></small>
+              </div>
+              <div class="col-sm text-end">
+                <p class="text-muted"><%= "$#{format("-%.2f", @promotion_code.discount_price)}" %></p>
+              </div>
+            </li>
+          <% end %>
         </ul>
-        <form class="card p-2">
+        <%= form_with url: carts_path, method: :get, local: true, data: {turbo: false}, class: "card p-2", html: { novalidate: true } do |f| %>
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Promo code">
-            <button type="submit" class="btn btn-secondary">Redeem</button>
+            <%= f.text_field :promotion_code, class: "form-control", placeholder: "Promo code" %>
+            <%= f.submit 'Redeem', class: 'btn btn-secondary' %>
           </div>
-        </form>
+        <% end %>
       </div>
       <div class="col-md-7 col-lg-8">
         <h4 class="mb-3">Billing address</h4>
-        <%= form_with model: Order.new, url: admin_orders_path, local: true, data: {turbo: false}, class: "needs-validation", html: { novalidate: true } do |f| %>
+        <%= form_with model: Order.new, url: order_form_url(@promotion_code), local: true, data: {turbo: false}, class: "needs-validation", html: { novalidate: true } do |f| %>
           <div class="row g-3">
             <div class="col-sm-6">
               <%= f.label :first_name, "First name", class: "form-label" %>

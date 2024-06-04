@@ -5,6 +5,12 @@ class CartsController < ApplicationController
 
   def index
     @cart_items = current_cart.contents_of_cart
+    @promotion_code = params[:promotion_code] ? PromotionCode.find_by(code: params[:promotion_code]) : return
+    if @promotion_code
+      flash.now[:success] = 'プロモーションコードを適用しました。'
+    else
+      flash.now[:warning] = '存在しないプロモーションコードです。'
+    end
   end
 
   def create
