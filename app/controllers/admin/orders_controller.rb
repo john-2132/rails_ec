@@ -22,14 +22,12 @@ module Admin
       end
 
       begin
-        Order.transaction do
-          @order = Order.new(order_params)
-          @order_items = @order.checkout_order(cart_items)
-          flash[:success] = 'ご購入ありがとうございます！！'
-          OrderDetailMailer.with(order: @order, order_items: @order_items).order_detail_email.deliver_now
-          session.delete(:cart_id)
-          redirect_to items_path
-        end
+        @order = Order.new(order_params)
+        @order_items = @order.checkout_order(cart_items, params[:code])
+        flash[:success] = 'ご購入ありがとうございます！！'
+        OrderDetailMailer.with(order: @order, order_items: @order_items).order_detail_email.deliver_now
+        session.delete(:cart_id)
+        redirect_to items_path
       rescue ActiveRecord::RecordInvalid
         flash[:warning] = '購入に失敗しました。'
         redirect_to carts_path
